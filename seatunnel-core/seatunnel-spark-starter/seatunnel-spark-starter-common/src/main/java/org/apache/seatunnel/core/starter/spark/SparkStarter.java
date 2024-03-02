@@ -335,6 +335,7 @@ public class SparkStarter implements Starter {
                 }
                 appendOption(commands, "--conf", key + "=" + value);
             }
+            appendOption(commands,"--conf","spark.driver.host="+System.getenv("POD_IP"));
         }
     }
 
