@@ -15,30 +15,14 @@
  * limitations under the License.
  */
 
-package org.apache.seatunnel.engine.server.service.classloader;
+package org.apache.seatunnel.connectors.seatunnel.paimon.catalog;
 
-import java.net.URL;
-import java.util.Collection;
+import org.apache.seatunnel.api.table.catalog.TablePath;
+import org.apache.seatunnel.api.table.catalog.exception.CatalogException;
+import org.apache.seatunnel.api.table.catalog.exception.TableNotExistException;
 
-/** ClassLoaderService is used to manage the classloader of the connector plugin. */
-public interface ClassLoaderService {
-    /**
-     * Get the classloader of the connector plugin.
-     *
-     * @param jobId the job id
-     * @param jars the jars of the connector plugin
-     * @return the classloader of the connector plugin
-     */
-    ClassLoader getClassLoader(long jobId, Collection<URL> jars);
+import org.apache.paimon.table.Table;
 
-    /**
-     * Release the classloader of the connector plugin.
-     *
-     * @param jobId the job id
-     * @param jars the jars of the connector plugin
-     */
-    void releaseClassLoader(long jobId, Collection<URL> jars);
-
-    /** Close the classloader service. */
-    void close();
+public interface PaimonTable {
+    Table getPaimonTable(TablePath tablePath) throws CatalogException, TableNotExistException;
 }

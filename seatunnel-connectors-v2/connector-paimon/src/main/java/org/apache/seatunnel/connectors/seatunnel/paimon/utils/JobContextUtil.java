@@ -15,21 +15,18 @@
  * limitations under the License.
  */
 
-package org.apache.seatunnel.engine.common.loader;
+package org.apache.seatunnel.connectors.seatunnel.paimon.utils;
+
+import org.apache.seatunnel.api.common.JobContext;
+import org.apache.seatunnel.common.constants.JobMode;
 
 import lombok.extern.slf4j.Slf4j;
 
+/** Job env util */
 @Slf4j
-public class ClassLoaderUtil {
+public class JobContextUtil {
 
-    public static void recycleClassLoaderFromThread(ClassLoader classLoader) {
-        log.info("recycle classloader " + classLoader);
-        Thread.getAllStackTraces().keySet().stream()
-                .filter(thread -> thread.getContextClassLoader() == classLoader)
-                .forEach(
-                        thread -> {
-                            log.info("recycle classloader for thread " + thread.getName());
-                            thread.setContextClassLoader(null);
-                        });
+    public static boolean isBatchJob(JobContext jobContext) {
+        return jobContext.getJobMode().equals(JobMode.BATCH);
     }
 }
